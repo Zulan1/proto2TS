@@ -1,0 +1,11 @@
+// [START declaration]
+syntax = "proto3";
+package Messages;
+// [END declaration]
+
+import "base/common.proto";
+import "command_handled.proto";
+
+service CommandHandledService {
+    rpc CommandHandledResponse (Messages.CommandHandledMsg) returns (Common.Result);
+}

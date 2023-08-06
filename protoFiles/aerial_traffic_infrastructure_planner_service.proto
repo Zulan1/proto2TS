@@ -1,0 +1,17 @@
+// [START declaration]
+syntax = "proto3";
+package messages;
+// [END declaration]
+
+import "base/common.proto";
+import "base/aerial_traffic_infrastructure_planner.proto";
+
+service AerialTrafficInfrastructurePlannerService {
+  rpc UpdateCTRAreaData (TrafficInfrastracture.CTRAreaDataInput) returns (Common.Result);
+  rpc UpdateLauncherData (TrafficInfrastracture.LauncherDataInput) returns (Common.Result);
+  rpc UpdateLandingPadData (TrafficInfrastracture.LandingPadDataInput) returns (Common.Result);
+  rpc UpdateAirSpacesData (TrafficInfrastracture.AirSpaceDataInput) returns (Common.Result);
+  rpc UpdateEmergencyLandingPointData (TrafficInfrastracture.EmergencyLandingPointDataInput) returns (Common.Result);
+  rpc UpdateAntennaData (TrafficInfrastracture.AntennaDataInput) returns (Common.Result);
+  rpc UpdateComplete(Common.Empty) returns (Common.Result);
+}

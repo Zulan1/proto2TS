@@ -1,0 +1,21 @@
+// [START declaration]
+syntax = "proto3";
+package messages;
+// [END declaration]
+
+import "base/common.proto";
+import "base/aerial_traffic_infrastructure_planner.proto";
+
+// [START messages]
+
+message NonConnectedAirSpacesMsg{//  system -> air
+    Common.Header header = 1;
+    repeated TrafficInfrastracture.OutputAirspaceData air_spaces = 2;
+}
+
+message ElevatorDataMsg{//  system -> air
+    Common.Header header = 1;
+    repeated TrafficInfrastracture.ElevatorData elevator_data = 2;
+}
+
+// [END messages]

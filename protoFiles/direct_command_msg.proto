@@ -1,0 +1,294 @@
+//--- [START declaration] ---//
+syntax = "proto3";
+package Messages;
+//--- [END declaration] ---//
+
+import "base/common.proto";
+import "base/geometry.proto";
+import "base/flight_control.proto";
+import "base/delivery_control.proto";
+
+// [START messages]
+
+message RequestResponse{
+    Common.ID command_id = 1;
+    bool success = 2;
+    optional string message = 3;
+}
+
+message DeliveryUserDirectRequestsMsg{ // deliver user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    DeliveryControl.DeliveryUserDirectRequests direct_requests = 3;
+}
+
+message DeliveryMetadataMsg{ //  system -> user/ground
+    Common.Header header = 1;
+    DeliveryControl.DeliveryMetadata delivery_metadata = 2;
+}
+
+message SystemResponseMsg{ //  system -> user/ground
+    Common.Header header = 1;
+    RequestResponse response = 2;
+}
+
+// --- [START Direct Request Messages] ---
+message NavLightsDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.OnOffSwitch nav_lights = 4; //4586: 2007
+}
+
+message LandingLightsDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.OnOffSwitch landing_lights = 4; //4586: 2007
+}
+
+message SensorControlDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    repeated FlightControl.SensorControl sensor_control = 4;
+}
+
+message SensorActionsDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    repeated FlightControl.SensorActions sensor_action = 4; // after user request
+}
+
+message AltitudeChangeDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.AltitudeChange alt_change = 4;
+}
+
+message HoldDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+}
+
+message NTCDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    Geom.GeoCoordinate2D ntc_request = 4;
+}
+
+message ReturnToMainLPDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+}
+
+message EmergencyRouteDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.EmergencyRouteType rh_request = 4;
+}
+
+message EmergencyLandingPointDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.EngageLP elp_engage = 4;
+}
+
+message ReturnToFullSystemControlDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+}
+
+message SpeedCommandDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.SpeedCommand speed_command = 4;
+}
+
+message TxRxControlDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.TxRxControl tx_rx_control = 4;
+}
+
+message MinAngleDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    float min_agl_command = 4;
+}
+
+message MinEnergyDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    float min_energy_command = 4;//  0-1 // changes due to weather
+}
+
+message MinVelocityDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    float min_vel_command = 4; // changes due to weather
+}
+
+message AirSpaceAltLimitsDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.AirSpaceAltitudeLimits air_space_altitude_limits = 4;
+}
+
+message GoHomeDirectRequestMsg{// flight user/ground -> system
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+}
+
+// --- [END Direct Request Messages] ---
+
+// --- [START System Command Messages] ---
+message NavLightsSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.OnOffSwitch nav_light = 4; //4586: 2007 // after user request
+}
+
+message LandingLightsSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.OnOffSwitch landing_lights = 4; //4586: 2007 // after user request
+}
+
+message SensorControlSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.SensorControl sensor_control = 4; // after user request
+}
+
+message SensorActionsSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.SensorActions sensor_action = 4; // after user request
+}
+
+message AltitudeChangeSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.AltitudeChange alt_change = 4;
+}
+
+message HoldSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.HoldManeuver hold_maneuver = 4;
+}
+
+message NTCSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    Geom.GeoCoordinate2D pos = 4;
+    FlightControl.HoldManeuver hold_maneuver = 5;
+}
+
+message LPEngageSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.EngageLP lp_engage = 4;
+}
+
+message DroneRoutesTypeSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.DroneRouteType drone_routes_type_engage = 4;
+}
+
+message EmergencyLPSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.EngageLP elp_engage = 4;
+}
+
+message SpeedSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.SpeedCommand speed_command = 4;
+}
+
+message TxRxSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.TxRxControl tx_rx_control = 4;
+}
+
+message DroneBoundingAreaSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.DroneBoundingAreaVolume bounded_volumes = 4;
+}
+
+message CameraGuideSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    FlightControl.CameraGuideCommand camera_guide_command = 4;
+}
+
+message MinAngleSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    float min_agl_command = 4;
+}
+
+message MinEnergySystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    float min_energy_command = 4;//  0-1
+}
+
+message MinVelocitySystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    float min_vel_command = 4;
+}
+
+message BarometricPressureChangeSystemCommandMsg{//  system -> air
+    Common.Header header = 1;
+    Common.ID direct_command_id = 2;
+    Common.ID drone_id = 3;
+    float barometric_pressure_change = 4;//qnh
+}
+
+message SkyPictureMsg   // system -> ground
+{
+  Common.Header header = 1;
+  Common.ID direct_command_id = 2;
+  repeated FlightControl.DroneSkyPictureData drones = 3;
+}
+// --- [END System Command Messages] ---

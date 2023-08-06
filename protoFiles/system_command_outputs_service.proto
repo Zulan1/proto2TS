@@ -1,0 +1,29 @@
+// [START declaration]
+syntax = "proto3";
+package Messages;
+// [END declaration]
+
+import "base/common.proto";
+import "direct_command_msg.proto";
+
+service SystemCommandsOutputService {
+    rpc NavLightsSystemCommand (Messages.NavLightsSystemCommandMsg) returns (Common.Result);
+    rpc LandingLightsSystemCommand (Messages.LandingLightsSystemCommandMsg) returns (Common.Result);
+    rpc SensorControlSystemCommand (Messages.SensorControlSystemCommandMsg) returns (Common.Result);
+    rpc SensorActionsSystemCommand (Messages.SensorActionsSystemCommandMsg) returns (Common.Result);
+    rpc AltitudeChangeSystemCommand (Messages.AltitudeChangeSystemCommandMsg) returns (Common.Result);
+    rpc HoldSystemCommand (Messages.HoldSystemCommandMsg) returns (Common.Result);
+    rpc NTCSystemCommand (Messages.NTCSystemCommandMsg) returns (Common.Result);
+    rpc LPEngageSystemCommand (Messages.LPEngageSystemCommandMsg) returns (Common.Result);
+    rpc DroneRoutesTypeSystemCommand (Messages.DroneRoutesTypeSystemCommandMsg) returns (Common.Result);
+    rpc EmergencyLPSystemCommand (Messages.EmergencyLPSystemCommandMsg) returns (Common.Result);
+    rpc SpeedSystemCommand (Messages.SpeedSystemCommandMsg) returns (Common.Result);
+    rpc TxRxSystemCommand (Messages.TxRxSystemCommandMsg) returns (Common.Result);
+    rpc DroneBoundingAreaSystemCommand (Messages.DroneBoundingAreaSystemCommandMsg) returns (Common.Result);
+    rpc CameraGuideSystemCommand (Messages.CameraGuideSystemCommandMsg) returns (Common.Result);
+    rpc MinAngleSystemCommand (Messages.MinAngleSystemCommandMsg) returns (Common.Result);
+    rpc MinEnergySystemCommand (Messages.MinEnergySystemCommandMsg) returns (Common.Result);
+    rpc MinVelocitySystemCommand (Messages.MinVelocitySystemCommandMsg) returns (Common.Result);
+    rpc BarometricPressureChangeSystemCommand (Messages.BarometricPressureChangeSystemCommandMsg) returns (Common.Result);
+    rpc ReportSkyPicture (Messages.SkyPictureMsg) returns (Common.Result);
+  }

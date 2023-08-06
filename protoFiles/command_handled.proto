@@ -1,0 +1,19 @@
+// [START declaration]
+syntax = "proto3";
+package Messages;
+// [END declaration]
+
+import "base/common.proto"; 
+
+message CommandHandledMsg{
+    enum ResponseStatus{
+        SUCCESS = 0;
+        FAILURE = 1;
+    }
+
+    Common.Header header = 1;
+    Common.ID command_message_id = 2;
+    ResponseStatus status = 3;
+    optional string error_code = 4;
+    optional string error_message = 5;
+}
