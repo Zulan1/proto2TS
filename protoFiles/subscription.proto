@@ -1,8 +1,0 @@
-syntax = "proto3";
-package subscription;
-
-import "base/aerial_traffic_infrastructure_planner.proto";
-
-service SubscriptionService {
-  rpc Subscribe (Common.Empty) returns (Common.Empty);
-}
